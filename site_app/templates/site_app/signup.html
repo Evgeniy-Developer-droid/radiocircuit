@@ -1,0 +1,48 @@
+{% extends 'site_app/base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-6 col-md-6 col-sm-12">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{form.email.id_for_label}}" class="form-label">{{form.email.label}}</label>
+                    {% if form.email.errors %}
+                        {% for error in form.email.errors %}
+                            <p class="text-danger"><strong>{{ error|escape }}</strong></p>
+                        {% endfor %}
+                    {% endif %}
+                    {{form.email}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{form.username.id_for_label}}" class="form-label">{{form.username.label}}</label>
+                    {% if form.username.errors %}
+                        {% for error in form.username.errors %}
+                            <p class="text-danger"><strong>{{ error|escape }}</strong></p>
+                        {% endfor %}
+                    {% endif %}
+                    {{form.username}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{form.password1.id_for_label}}" class="form-label">{{form.password1.label}}</label>
+                    {% if form.password1.errors %}
+                        {% for error in form.password1.errors %}
+                            <p class="text-danger"><strong>{{ error|escape }}</strong></p>
+                        {% endfor %}
+                    {% endif %}
+                    {{form.password1}}
+                </div>
+                <div class="mb-3">
+                    <label for="{{form.password2.id_for_label}}" class="form-label">{{form.password2.label}}</label>
+                    {% if form.password2.errors %}
+                        {% for error in form.password2.errors %}
+                            <p class="text-danger"><strong>{{ error|escape }}</strong></p>
+                        {% endfor %}
+                    {% endif %}
+                    {{form.password2}}
+                </div>
+                <button class="btn btn-primary">Sign up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

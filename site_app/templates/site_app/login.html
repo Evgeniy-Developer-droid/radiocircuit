@@ -1,0 +1,34 @@
+{% extends 'site_app/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-6 col-md-6 col-sm-12">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if error %}
+                <div class="alert alert-danger mb-3">{{error}}</div>
+            {% endif %}
+            <div class="mb-3">
+                <label for="{{form.username.id_for_label}}" class="form-label">{{form.username.label}}</label>
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <p class="text-danger"><strong>{{ error|escape }}</strong></p>
+                    {% endfor %}
+                {% endif %}
+                {{form.username}}
+            </div>
+            <div class="mb-3">
+                <label for="{{form.password2.id_for_label}}" class="form-label">{{form.password.label}}</label>
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <p class="text-danger"><strong>{{ error|escape }}</strong></p>
+                    {% endfor %}
+                {% endif %}
+                {{form.password}}
+            </div>
+            <button class="btn btn-primary">Login</button>
+            <p class="text-muted mt-3" ><a href="{% url 'reset-password' %}">Forgot your password?</a> Please update it using this form.</p>
+        </form>
+    </div>
+</div>
+{% endblock %}
