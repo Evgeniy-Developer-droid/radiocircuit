@@ -1,0 +1,27 @@
+#id_body{
+    display: none;
+}
+.cb_wrap{
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 2px rgb(135, 194, 254) dashed;
+}
+.btn-nav{
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: rgb(66, 66, 252);
+    color: white;
+    cursor: pointer;
+}
+#navigation_body{
+    display: flex;
+    flex-wrap: wrap;
+}
+.wrap_body{
+    width: 100%;
+}

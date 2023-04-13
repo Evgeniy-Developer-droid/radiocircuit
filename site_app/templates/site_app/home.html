@@ -1,18 +1,21 @@
 {% extends 'site_app/base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-8">
+        <div class="col-lg-8 col-md-12">
 
+            <h2>Recently added</h2>
             <div class="row row-cols-1 row-cols-md-2">
+                {% for post in new_posts %}
                 <div class="col mb-4">
                   <!-- Card -->
                   <div class="card">
               
                     <!--Card image-->
                     <div class="view overlay">
-                      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.webp"
+                      <img class="card-img-top" src="{{post.preview_image.url}}"
                         alt="Card image cap">
                       <a href="#!">
                         <div class="mask rgba-white-slight"></div>
@@ -23,109 +26,84 @@
                     <div class="card-body">
               
                       <!--Title-->
-                      <h4 class="card-title">Card title</h4>
+                      <h4 class="card-title">{{post.title}}</h4>
                       <!--Text-->
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
+                      <p class="card-text">{{post.description}}</p>
                       <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
                       <button type="button" class="btn btn-light-blue btn-md">Read more</button>
-              
+                      <span class="mx-3 text-muted align-middle">
+                         <img width="20px" src="{% static 'svg/eye.svg' %}" alt=""> <b>{{post.views}}</b>
+                        </span>
                     </div>
               
                   </div>
                   <!-- Card -->
                 </div>
-                <div class="col mb-4">
-                  <!-- Card -->
-                  <div class="card">
-              
-                    <!--Card image-->
-                    <div class="view overlay">
-                      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.webp"
-                        alt="Card image cap">
-                      <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                      </a>
-                    </div>
-              
-                    <!--Card content-->
-                    <div class="card-body">
-              
-                      <!--Title-->
-                      <h4 class="card-title">Card title</h4>
-                      <!--Text-->
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                      <button type="button" class="btn btn-light-blue btn-md">Read more</button>
-              
-                    </div>
-              
+                {% endfor %}
+            </div>
+            <div class="m-3"></div>
+            <hr>
+            <div class="m-3"></div>
+            <h2>Popular posts</h2>
+            <div class="row row-cols-1 row-cols-md-2">
+
+              {% for post in popular_posts %}
+              <div class="col mb-4">
+                <!-- Card -->
+                <div class="card">
+            
+                  <!--Card image-->
+                  <div class="view overlay">
+                    <img class="card-img-top" src="{{post.preview_image.url}}"
+                      alt="Card image cap">
+                    <a href="#!">
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
                   </div>
-                  <!-- Card -->
-                </div>
-                <div class="col mb-4">
-                  <!-- Card -->
-                  <div class="card">
-              
-                    <!--Card image-->
-                    <div class="view overlay">
-                      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.webp"
-                        alt="Card image cap">
-                      <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                      </a>
-                    </div>
-              
-                    <!--Card content-->
-                    <div class="card-body">
-              
-                      <!--Title-->
-                      <h4 class="card-title">Card title</h4>
-                      <!--Text-->
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                      <button type="button" class="btn btn-light-blue btn-md">Read more</button>
-              
-                    </div>
-              
+            
+                  <!--Card content-->
+                  <div class="card-body">
+            
+                    <!--Title-->
+                    <h4 class="card-title">{{post.title}}</h4>
+                    <!--Text-->
+                    <p class="card-text">{{post.description}}</p>
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                    <button type="button" class="btn btn-light-blue btn-md">Read more</button>
+                    <span class="ml-3 text-muted">{{post.views}}</span>
                   </div>
-                  <!-- Card -->
+            
                 </div>
-                <div class="col mb-4">
-                  <!-- Card -->
-                  <div class="card">
-              
-                    <!--Card image-->
-                    <div class="view overlay">
-                      <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.webp"
-                        alt="Card image cap">
-                      <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                      </a>
-                    </div>
-              
-                    <!--Card content-->
-                    <div class="card-body">
-              
-                      <!--Title-->
-                      <h4 class="card-title">Card title</h4>
-                      <!--Text-->
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                      <button type="button" class="btn btn-light-blue btn-md">Read more</button>
-              
-                    </div>
-              
-                  </div>
-                  <!-- Card -->
-                </div>
+                <!-- Card -->
+              </div>
+              {% endfor %}
+                
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 col-md-12">
+          <div class="sidebar row">
 
+            <div class="col mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">News</h4>
+                  <!-- <p class="card-text text-muted">New messages</p> -->
+                  
+                  {% for item in news %}
+                    <div class="d-flex">
+                      <div class="news_img col-4" style="background-image: url('{{item.preview_image.url}}');"></div>
+                      <div class="news_meta col-8 mx-1">
+                        <a href="#" class="text-decoration-none">{{item.title}}</a>
+                        <p class="text-muted">{{item.description}}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
         </div>
     </div>
 </div>
