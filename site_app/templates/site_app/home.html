@@ -104,6 +104,27 @@
                 </div>
               </div>
             </div>
+
+            <div class="col mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Categories</h4>
+                  <!-- <p class="card-text text-muted">New messages</p> -->
+                  
+                  <div class="d-flex flex-wrap">
+                    {% for item in categories %}
+                      <div class="m-2">
+                        <a href="#" class="btn btn-sm bg-success text-dark bg-opacity-25">
+                          <img src="{% static 'svg/bookmark.svg' %}" width="20px"/>
+                          {{item.title}}
+                        </a>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
             
           </div>
         </div>

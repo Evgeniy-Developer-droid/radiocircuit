@@ -2,7 +2,17 @@ import uuid
 from django.db import models
 from site_app.models import User
 # from ckeditor.fields import RichTextField
-# Create your models here.
+
+
+class Category(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    token = models.UUIDField(default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=255, default="")
+    slug = models.SlugField(unique=True, max_length=500)
+
+    def __str__(self):
+        return self.title
+
 
 class News(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -37,6 +47,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, max_length=500)
     preview_image = models.ImageField(upload_to="preview_image/")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    categories = models.ManyToManyField(Category, null=True, blank=True)
     views = models.IntegerField(default=0)
 
 

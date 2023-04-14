@@ -4,43 +4,78 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                {% for post in posts %}
-                <div class="col mb-4">
-                  <!-- Card -->
-                  <div class="card">
-              
-                    <!--Card image-->
-                    <div class="view overlay">
-                      <img class="card-img-top" src="{{post.preview_image.url}}"
-                        alt="Card image cap">
-                      <a href="#!">
-                        <div class="mask rgba-white-slight"></div>
-                      </a>
-                    </div>
-              
-                    <!--Card content-->
-                    <div class="card-body">
-              
-                      <!--Title-->
-                      <h4 class="card-title">{{post.title}}</h4>
-                      <!--Text-->
-                      <p class="card-text">{{post.description}}</p>
-                      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-                      <a href="{% url 'post' post.slug %}" class="btn btn-light-blue btn-md">Read more</a>
-                      <span class="mx-3 text-muted align-middle">
-                         <img width="20px" src="{% static 'svg/eye.svg' %}" alt=""> <b>{{post.views}}</b>
-                      </span>
-                    </div>
-              
-                  </div>
-                  <!-- Card -->
+      <div class="col mb-4">
+        <div class="card">
+          <div class="card-body">
+            <!-- <h4 class="card-title">Categories</h4> -->
+            <!-- <p class="card-text text-muted">New messages</p> -->
+            
+            <div class="d-flex flex-wrap">
+              {% for item in categories %}
+                <div class="m-2">
+                  <a href="?category={{item.slug}}" class="btn btn-sm bg-success text-dark bg-opacity-25">
+                    <img src="{% static 'svg/bookmark.svg' %}" width="20px"/>
+                    {{item.title}}
+                  </a>
                 </div>
-                {% endfor %}
+              {% endfor %}
             </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+          {% if posts %}
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+              {% for post in posts %}
+              <div class="col mb-4">
+                <!-- Card -->
+                <div class="card">
+            
+                  <!--Card image-->
+                  <div class="view overlay">
+                    <img class="card-img-top" src="{{post.preview_image.url}}"
+                      alt="Card image cap">
+                    <a href="#!">
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+            
+                  <!--Card content-->
+                  <div class="card-body">
+            
+                    <!--Title-->
+                    <h4 class="card-title">{{post.title}}</h4>
+                    <!--Text-->
+                    <p class="card-text">{{post.description}}</p>
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                    <a href="{% url 'post' post.slug %}" class="btn btn-light-blue btn-md">Read more</a>
+                    <span class="mx-3 text-muted align-middle">
+                      <img width="20px" src="{% static 'svg/eye.svg' %}" alt=""> <b>{{post.views}}</b>
+                    </span>
+                  </div>
+            
+                </div>
+                <!-- Card -->
+              </div>
+              {% endfor %}
+            </div>
+          {% else %}
+          <p>Not found.</p>
+          {% endif %}
             
         </div>
     </div>
+
+    {% if posts %}
+    <div class="row">
+      <div class="col">
+        {% include 'pagination.html' %}
+      </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

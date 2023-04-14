@@ -1,15 +1,18 @@
+
 <nav aria-label="...">
     <ul class="pagination">
-      <li class="page-item disabled mx-1">
-        <span class="page-link">Previous</span>
-      </li>
-      <li class="page-item mx-1"><a class="page-link" href="#">1</a></li>
-      <li class="page-item active mx-1" aria-current="page">
-        <span class="page-link">2</span>
-      </li>
-      <li class="page-item mx-1"><a class="page-link" href="#">3</a></li>
-      <li class="page-item mx-1">
-        <a class="page-link" href="#">Next</a>
-      </li>
+      {% for page_number in page_obj.adjusted_elided_pages %}
+          {% if page_number == page_obj.paginator.ELLIPSIS %}
+            <li class="page-item mx-1">
+              <span class="page-link">{{page_number}}</span>
+            </li>
+          {% else %}
+            <li class="page-item mx-1">
+              <a href="?page={{page_number}}{% for k, v in get_params.items %}&{{k}}={{v}}{% endfor %}" class="text-decoration-none">
+                <span class="page-link text-dark {% if page_number == page_obj.number %}bg-primary-subtle{% endif %}">{{page_number}}</span>
+              </a>
+            </li>
+          {% endif %}
+      {% endfor %}
     </ul>
 </nav>
