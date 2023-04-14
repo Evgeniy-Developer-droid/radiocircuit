@@ -1,0 +1,46 @@
+{% extends 'site_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                {% for post in posts %}
+                <div class="col mb-4">
+                  <!-- Card -->
+                  <div class="card">
+              
+                    <!--Card image-->
+                    <div class="view overlay">
+                      <img class="card-img-top" src="{{post.preview_image.url}}"
+                        alt="Card image cap">
+                      <a href="#!">
+                        <div class="mask rgba-white-slight"></div>
+                      </a>
+                    </div>
+              
+                    <!--Card content-->
+                    <div class="card-body">
+              
+                      <!--Title-->
+                      <h4 class="card-title">{{post.title}}</h4>
+                      <!--Text-->
+                      <p class="card-text">{{post.description}}</p>
+                      <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                      <a href="{% url 'post' post.slug %}" class="btn btn-light-blue btn-md">Read more</a>
+                      <span class="mx-3 text-muted align-middle">
+                         <img width="20px" src="{% static 'svg/eye.svg' %}" alt=""> <b>{{post.views}}</b>
+                      </span>
+                    </div>
+              
+                  </div>
+                  <!-- Card -->
+                </div>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

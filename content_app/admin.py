@@ -21,6 +21,7 @@ class NewsContentInline(admin.StackedInline):
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'created')
     search_fields = ('title',)
+    prepopulated_fields = {"slug": ("title",)}
     ordering = ('-created',)
     inlines = [NewsContentInline,]
 
@@ -43,6 +44,7 @@ class PostContentInline(admin.StackedInline):
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug', 'author', 'created')
+    prepopulated_fields = {"slug": ("title",)}
     search_fields = ('title', 'author',)
     ordering = ('-created',)
     inlines = [PostContentInline,]

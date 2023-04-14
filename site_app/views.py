@@ -2,8 +2,33 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from content_app.models import News, Post
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
+
+
+class PostsView(View):
+    template_view = 'site_app/posts.html'
+
+    def get(self, request):
+        instances = Post.objects.all().order_by('-created')
+        return render(request, self.template_view, context={
+            "title": f"RadioCircuit | Circuits",
+            "posts": instances
+        })
+
+
+class PostView(View):
+    template_view = 'site_app/post.html'
+
+    def get(self, request, slug):
+        instance = get_object_or_404(Post, slug=slug)
+        instance.views += 1
+        instance.save()
+        return render(request, self.template_view, context={
+            "title": f"RadioCircuit | {instance.title}",
+            "instance": instance
+        })
 
 
 class HomeView(View):

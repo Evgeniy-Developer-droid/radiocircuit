@@ -1,0 +1,68 @@
+{% extends 'site_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-between my-1">
+        <div class="col">
+            <span class="text-muted">Author: {{instance.author.username}}</span>
+        </div>
+        <div class="col d-flex justify-content-end">
+            <span class="mx-3 text-muted align-middle">
+                <img width="20px" src="{% static 'svg/eye.svg' %}" alt=""> <b>{{instance.views}}</b>
+            </span>
+        </div>
+    </div>
+    <div class="row post-head">
+        <div class="col">
+            <h1>{{instance.title}}</h1>
+            <p>{{instance.description}}</p>
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <img class="w-100" src="{{instance.preview_image.url}}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for item in instance.post_content.all %}
+    <div class="row">
+        <div class="col">
+            {% if item.image %}
+                <div class="row justify-content-center my-1">
+                    <div class="col-8">
+                        <img class="w-100" src="{{item.image.url}}" alt="">
+                    </div>
+                </div>
+            {% endif %}
+            {% if item.file %}
+                <div class="my-1">
+                    <a class="" href="{{item.file.url}}" download>File</a>
+                </div>
+            {% endif %}
+            {% if item.link %}
+                <div class="my-1">
+                    <a class="" href="{{item.link}}">Link</a>
+                </div>
+            {% endif %}
+            {% if item.video %}
+                <div class="my-1">
+                    <a class="" href="#">Video</a>
+                </div>
+            {% endif %}
+            {% if item.youtube %}
+                <div class="my-1">
+                    <a class="" href="#">Youtube</a>
+                </div>
+            {% endif %}
+            {% if item.content %}
+                <div class="row">
+                    <div class="col">
+                        {{item.content | safe}}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
