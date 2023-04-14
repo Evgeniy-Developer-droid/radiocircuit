@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
-from content_app.fields import DynamicArrayField
 from site_app.models import User
+# from ckeditor.fields import RichTextField
 # Create your models here.
 
 class News(models.Model):
@@ -14,7 +14,18 @@ class News(models.Model):
     preview_image = models.ImageField(upload_to="preview_image/")
     views = models.IntegerField(default=0)
 
-    body = models.TextField(default="")
+
+class NewsContent(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    token = models.UUIDField(default=uuid.uuid4, editable=False)
+    image = models.ImageField(upload_to='news_uploads_images/', null=True, blank=True)
+    video = models.FileField(upload_to='news_uploads_video/', null=True, blank=True)
+    file = models.FileField(upload_to='news_uploads_files/', null=True, blank=True)
+    youtube = models.URLField(null=True, blank=True)
+    link = models.URLField(null=True, blank=True)
+    content = models.TextField(default="", null=True, blank=True)
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name="news_content")
 
 
 class Post(models.Model):
@@ -27,3 +38,16 @@ class Post(models.Model):
     preview_image = models.ImageField(upload_to="preview_image/")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     views = models.IntegerField(default=0)
+
+
+class PostContent(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    token = models.UUIDField(default=uuid.uuid4, editable=False)
+    image = models.ImageField(upload_to='post_uploads_images/', null=True, blank=True)
+    video = models.FileField(upload_to='post_uploads_video/', null=True, blank=True)
+    file = models.FileField(upload_to='post_uploads_files/', null=True, blank=True)
+    youtube = models.URLField(null=True, blank=True)
+    link = models.URLField(null=True, blank=True)
+    content = models.TextField(default="", null=True, blank=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_content")
