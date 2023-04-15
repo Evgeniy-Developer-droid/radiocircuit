@@ -13,6 +13,20 @@
             </span>
         </div>
     </div>
+
+    {% if instance %}
+      <div class="d-flex flex-wrap">
+        {% for item in instance.categories.all %}
+          <div class="m-2">
+            <a href="{% url 'posts' %}?category={{item.slug}}" class="btn btn-sm bg-success text-dark bg-opacity-25">
+              <img src="{% static 'svg/bookmark.svg' %}" width="20px"/>
+              {{item.title}}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
     <div class="row post-head">
         <div class="col">
             <h1>{{instance.title}}</h1>
@@ -24,6 +38,7 @@
             </div>
         </div>
     </div>
+
     {% for item in instance.post_content.all %}
     <div class="row">
         <div class="col">

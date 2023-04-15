@@ -1,4 +1,12 @@
 
+.thumbnail-forum{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+}
+
 .news_img{
     background-position: center;
     background-repeat: no-repeat;

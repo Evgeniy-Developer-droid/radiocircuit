@@ -1,0 +1,56 @@
+{% extends 'forum_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a class="text-primary text-decoration-none" href="{% url 'forum_chapters' %}">Chapters</a>
+            <span>/</span>
+            <a class="text-black text-decoration-none">{{chapter.title}}</a>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success">+ Topic</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <table class="table table-borderless align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Messages</th>
+                    <th scope="col">Last activity</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for topic in topics %}
+                        <tr class="my-1 bg-secondary-subtle">
+                            <th class="" width="50px">
+                                <img width="45px" src="{% static 'svg/topic.svg' %}" alt="">
+                            </th>
+                            <td class="">
+                                <a href="{% url 'forum_messages' chapter.slug topic.slug %}" class="text-decoration-none h5 text-primary-emphasis">{{topic.title}}</a>
+                            </td>
+                            <td>{{topic.message_topic.all.count}}</td>
+                            <td>
+                                <p class="m-0" style="font-size: 12px;" >Author: <b>{{topic.message_topic.all.last.creator.username}}</b></p>
+                                <p class="m-0" style="font-size: 12px;" >Created: <b>{{topic.message_topic.all.last.created}}</b></p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if topics %}
+    <div class="row">
+      <div class="col">
+        {% include 'pagination.html' %}
+      </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

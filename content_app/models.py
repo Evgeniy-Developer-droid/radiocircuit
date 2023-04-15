@@ -47,7 +47,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, max_length=500)
     preview_image = models.ImageField(upload_to="preview_image/")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    categories = models.ManyToManyField(Category, null=True, blank=True)
+    categories = models.ManyToManyField(Category)
     views = models.IntegerField(default=0)
 
 

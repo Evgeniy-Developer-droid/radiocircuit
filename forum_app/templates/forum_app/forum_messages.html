@@ -1,0 +1,62 @@
+{% extends 'forum_app/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a class="text-primary text-decoration-none" href="{% url 'forum_chapters' %}">Chapters</a>
+            <span>/</span>
+            <a class="text-primary text-decoration-none" href="{% url 'forum_topics' chapter.slug %}">{{chapter.title}}</a>
+            <span>/</span>
+            <a class="text-black text-decoration-none">{{topic.title}}</a>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-success">+ Message</button>
+        </div>
+    </div>
+    <hr>
+    {% for message in messages %}
+        <div class="row my-2">
+            <div class="col-12 empty-line p-2 bg-primary" ></div>
+            <div class="col-3 border border-top-0 border-bottom-0">
+                <div class="row">
+                    <div class="col-12 text-center my-1">
+                        {% if message.creator.avatar %}
+                            <img src="{{message.creator.avatar.url}}" class="rounded-circle" style="max-width: 150px;" alt="Avatar" />
+                        {% else %}
+                            <img src="{% static 'svg/person.svg' %}" class="rounded-circle" style="max-width: 150px;" alt="Avatar" />
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <p class="text-center"><b>{{message.creator.username}}</b></p>
+                        <p class="text-center text-muted m-0" style="font-size: 13px;"><span title="Date joined" class="badge" style="background-color: blueviolet;">{{message.creator.date_joined}}</span></p>
+                        <p class="text-center text-muted m-0" style="font-size: 13px;">Messages: <span class="badge bg-success">{{message.creator.message_creator.all.count}}</span></p>
+                        <p class="text-center text-muted" style="font-size: 13px;">Rang: <span class="badge bg-danger">{{message.creator.rang}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9 border border-top-0 border-bottom-0">
+                <div class="row">
+                    <div class="col">
+                        <span class="badge bg-warning text-black">{{message.created}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col my-2">
+                        {{message.body|safe}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 empty-line p-1 bg-primary bg-opacity-50" ></div>
+        </div>
+    {% endfor %}
+    {% if messages %}
+    <div class="row">
+      <div class="col">
+        {% include 'pagination.html' %}
+      </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
