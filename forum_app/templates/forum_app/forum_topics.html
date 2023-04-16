@@ -9,9 +9,11 @@
             <span>/</span>
             <a class="text-black text-decoration-none">{{chapter.title}}</a>
         </div>
+        {% if request.user.is_authenticated %}
         <div class="col-12">
-            <button class="btn btn-success">+ Topic</button>
+            <a class="btn btn-success" href="{% url 'forum_create_topic' chapter.slug %}">+ Topic</a>
         </div>
+        {% endif %}
     </div>
     <hr>
     <div class="row">
