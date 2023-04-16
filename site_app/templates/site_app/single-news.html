@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-between my-1">
         <div class="col">
-            <span class="text-muted">Author: {{instance.author.username}}</span>
+            <span class="text-muted">Author: Radiocircuit.org</span>
         </div>
         <div class="col d-flex justify-content-end">
             <span class="mx-3 text-muted align-middle">
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    {% for item in instance.post_content.all %}
+    {% for item in instance.news_content.all %}
     <div class="row">
         <div class="col">
             {% if item.image %}
