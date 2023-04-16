@@ -95,7 +95,7 @@
                     <div class="d-flex">
                       <div class="news_img col-4" style="background-image: url('{{item.preview_image.url}}');"></div>
                       <div class="news_meta col-8 mx-1">
-                        <a href="#" class="text-decoration-none">{{item.title}}</a>
+                        <a href="{% url 'single-news' item.slug %}" class="text-decoration-none">{{item.title}}</a>
                         <p class="text-muted">{{item.description}}</p>
                       </div>
                     </div>

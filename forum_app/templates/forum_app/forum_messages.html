@@ -21,8 +21,8 @@
     <hr>
     {% for message in messages %}
         <div class="row my-2">
-            <div class="col-12 empty-line p-2 bg-primary" ></div>
-            <div class="col-3 border border-top-0 border-bottom-0">
+            <!-- <div class="col-12 empty-line p-1 bg-primary bg-opacity-50" ></div> -->
+            <div class="col-3 border border-2">
                 <div class="row">
                     <div class="col-12 text-center my-1">
                         {% if message.creator.avatar %}
@@ -33,13 +33,15 @@
                     </div>
                     <div class="col-12">
                         <p class="text-center"><b>{{message.creator.username}}</b></p>
-                        <p class="text-center text-muted m-0 " style="font-size: 13px;"><span title="Date joined" class="badge" style="background-color: blueviolet;">{{message.creator.date_joined}}</span></p>
+                        <!-- <p class="text-center text-muted m-0 " style="font-size: 13px;">
+                            <span title="Date joined" class="badge" style="background-color: blueviolet;">{{message.creator.date_joined}}</span>
+                        </p> -->
                         <p class="text-center text-muted m-0" style="font-size: 13px;">Messages: <span class="badge bg-success">{{message.creator.message_creator.all.count}}</span></p>
                         <p class="text-center text-muted" style="font-size: 13px;">Rang: <span class="badge bg-danger">{{message.creator.rang}}</span></p>
                     </div>
                 </div>
             </div>
-            <div class="col-9 border border-top-0 border-bottom-0">
+            <div class="col-9 border border-2">
                 <div class="row">
                     <div class="col">
                         <span class="badge bg-warning text-black">{{message.created}}</span>
@@ -50,8 +52,26 @@
                         {{message.body|safe}}
                     </div>
                 </div>
+                <div class="d-flex flex-wrap">
+                    {% for file in message.message_file_obj.all %}
+                        {% if file.file_type == "image" %}
+                            <a class="attach-img m-2 p-1" href="{{file.file.url}}" target="_blank">
+                                <div class="attach-forum" style="background-image: url('{{file.file.url}}');"></div>
+                                <p class="m-0">{{file.name}}</p>
+                            </a>
+                        {% endif %}
+                        {% if file.file_type == "file" %}
+                            <a class="attach-file m-2 p-1" href="{{file.file.url}}" download>
+                                <div class="attach-forum d-flex justify-content-center">
+                                    <img width="50px" src="{% static 'svg/file.svg' %}" alt="">
+                                </div>
+                                <p class="m-0">{{file.name}}</p>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-            <div class="col-12 empty-line p-1 bg-primary bg-opacity-50" ></div>
+            <!-- <div class="col-12 empty-line p-1 bg-primary bg-opacity-50" ></div> -->
         </div>
     {% endfor %}
     {% if messages %}

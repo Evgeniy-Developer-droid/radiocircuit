@@ -5,13 +5,33 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-8 col-sm-12">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                {% if error %}
+                    <div class="alert alert-danger mb-3">{{error}}</div>
+                {% endif %}
                 <div class="mb-3">
                   <label for="id_body" class="form-label">Message body</label>
                   {{form.body}}
                 </div>
-                <button type="submit" class="btn btn-primary">Send message</button>
+                <hr>
+                <p class="h5">Add image</p>
+                <div class="d-flex flex-wrap align-middle" id="image-wrap">
+                    <div class="m-3 nm-file-input">
+                        <input class="form-control form-control-sm" name="img_1" type="file">
+                    </div>
+                </div>
+                <button class="btn btn-success" id="add_image_btn" ><b>+</b></button>
+                <hr>
+                <p class="h5">Add file</p>
+                <div class="d-flex flex-wrap" id="file-wrap">
+                    <div class="m-3 nm-file-input">
+                        <input class="form-control form-control-sm" name="file_1" type="file">
+                    </div>
+                </div>
+                <button class="btn btn-success" id="add_file_btn"><b>+</b></button>
+                <hr>
+                <button type="submit" class="btn btn-primary" >Send message</button>
             </form>
         </div>
     </div>
@@ -21,4 +41,5 @@
 {% block custom_js %}
 <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
 <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script type="text/javascript" src="{% static "js/new_message.js" %}"></script>
 {% endblock %}

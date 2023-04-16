@@ -5,7 +5,7 @@ from ckeditor.widgets import CKEditorWidget
 
 
 class NewMessageForm(forms.ModelForm):
-    body = forms.CharField(widget=CKEditorWidget(config_name='public'))
+    body = forms.CharField(widget=CKEditorWidget(config_name='public'), required=True)
     class Meta:
         model = Message
         fields = ("body",)

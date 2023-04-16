@@ -50,5 +50,7 @@ class MessageFile(models.Model):
     token = models.UUIDField(default=uuid.uuid4, editable=False)
     file = models.FileField(upload_to='forum_uploads/', null=True, blank=True)
     file_type = models.CharField(max_length=255, choices=FILE_TYPE, default="file")
+    name = models.CharField(max_length=255, null=True, blank=True)
     message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name="message_file_obj")
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="message_file_topic", null=True)
     

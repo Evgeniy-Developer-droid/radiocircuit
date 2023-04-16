@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from forum_app.models import Chapter, Topic, Message
+from forum_app.models import Chapter, MessageFile, Topic, Message
 from forum_app.forms import NewMessageForm
 
 
@@ -31,12 +31,32 @@ class ForumCreateMessageView(LoginRequiredMixin, View):
         try:
             chapter = Chapter.objects.get(slug=chapter_slug)
             topic = Topic.objects.get(slug=topic_slug)
+            form = NewMessageForm()
+            if not request.POST.get("body", None):
+                return render(request, self.template_view, context={
+                    "title": f"RadioCircuit | Create message",
+                    "topic": topic,
+                    "chapter": chapter,
+                    "form": form,
+                    "error": "Message body is required."
+                })
             message = Message.objects.create(
                 body=request.POST.get("body", ""),
                 creator=request.user,
                 chapter=chapter,
                 topic=topic
             )
+            for key, file in request.FILES.items():
+                file_type = "file"
+                if key.startswith("img"):
+                    file_type = "image" 
+                MessageFile.objects.create(
+                    file=file,
+                    file_type=file_type,
+                    name=str(file),
+                    message=message,
+                    topic=topic
+                )
             return redirect(reverse("forum_messages", args=(chapter_slug, topic_slug)))
         except (Chapter.DoesNotExist, Topic.DoesNotExist):
             raise Http404()
