@@ -70,3 +70,14 @@ def recovery_password_success_mail(email):
 
     except Exception as e:
         print(e)
+
+
+def signup_confirm_mail():
+    try:
+        subject = 'test'
+        from_email = settings.EMAIL_HOST_USER
+        to = ["kukulalatutu@gmail.com"]
+        send_mail(subject, "Test mail", from_email, to)
+
+    except Exception as e:
+        print(e)

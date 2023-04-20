@@ -1,4 +1,5 @@
 from django.urls import path
+from site_app.tools import test_email_view
 from site_app import views
 from site_app import auth
 from django.conf import settings
@@ -20,4 +21,7 @@ urlpatterns = [
     path('sign-up/confirm/<str:token>', auth.signup_confirm_view, name="signup_confirm"),
     path('reset-password', auth.ResetPasswordView.as_view(), name="reset-password"),
     path('change-password/<str:token>', auth.ChangePasswordView.as_view(), name="change-password"),
+
+    #test
+    path("test-email", test_email_view, name="test-mail"),
 ]

@@ -1,4 +1,14 @@
+import uuid
 from django.db import models
+
+
+class Visitor(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    token = models.UUIDField(default=uuid.uuid4, editable=False)
+    user = models.CharField(max_length=255, default="anonymus")
+    ip = models.CharField(max_length=255, default="0.0.0.0")
+    country = models.CharField(max_length=255, default="unknown")
+    isp = models.CharField(max_length=255, default="unknown")
 
 
 class SeoPage(models.Model):

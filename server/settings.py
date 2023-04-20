@@ -40,6 +40,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'seo.middleware.VisitorMiddleware'
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -184,6 +185,6 @@ EMAIL_USE_TLS = False
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'radio.circuits.info@gmail.com'
-EMAIL_HOST_PASSWORD = 'ukzrmzxjzlsazdks'
+EMAIL_HOST_PASSWORD = 'prdclapunhxgxamq'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
