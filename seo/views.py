@@ -38,7 +38,7 @@ def init_sitemap_file(request):
                 print(f"Error for page - {post.slug}")
 
         tree = ET.ElementTree(root)
-        tree.write('sitemap.xml', encoding='utf-8', xml_declaration=True)
-        return HttpResponse(open('sitemap.xml').read(), content_type='text/xml')
+        tree.write('static/sitemap.xml', encoding='utf-8', xml_declaration=True)
+        return HttpResponse(open('static/sitemap.xml').read(), content_type='text/xml')
     else:
         return HttpResponse("You haven`t permissions!")

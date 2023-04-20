@@ -27,7 +27,6 @@ services:
     volumes:
       - static_volume:/home/app/static
       - media_volume:/home/app/media
-      - seo_volume:/home/app
     ports:
       - 8000:8000
     env_file:
@@ -43,7 +42,6 @@ services:
   #   volumes:
   #     - static_volume:/home/app/static
   #     - media_volume:/home/app/media
-  #     - seo_volume:/home/app
   #     - ./data/certbot/conf:/etc/letsencrypt
   #     - ./data/certbot/www:/var/www/certbot
   #   ports:
@@ -65,7 +63,6 @@ services:
     volumes:
       - static_volume:/home/app/static
       - media_volume:/home/app/media
-      - seo_volume:/home/app
     ports:
       - 80:80
     depends_on:
@@ -74,5 +71,4 @@ services:
 volumes:
   postgres_data:
   static_volume:
-  seo_volume:
   media_volume:
