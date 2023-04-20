@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('site_app.urls')),
     path('forum/', include('forum_app.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('seo/', include('seo.urls')),
 ]
 
 if settings.DEBUG:

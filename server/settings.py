@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'content_app',
     'ckeditor',
     'ckeditor_uploader',
+    'seo'
 ]
 
 MIDDLEWARE = [

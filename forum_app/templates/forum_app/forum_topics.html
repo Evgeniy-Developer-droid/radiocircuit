@@ -29,9 +29,9 @@
                 </thead>
                 <tbody>
                     {% for topic in topics %}
-                        <tr class="my-1 bg-secondary-subtle">
+                        <tr class="my-1">
                             <th class="" width="50px">
-                                <img width="45px" src="{% static 'svg/topic.svg' %}" alt="">
+                                <img width="25px" src="{% static 'svg/topic.svg' %}" alt="">
                             </th>
                             <td class="">
                                 <a href="{% url 'forum_messages' chapter.slug topic.slug %}" class="text-decoration-none h5 text-primary-emphasis">{{topic.title}}</a>

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import login, authenticate, logout
 from django.views import View
+from seo.models import SeoPage
 from site_app.models import Token, User
 from site_app.forms import NewUserForm, LoginForm, ChangePasswordForm, ResetPasswordForm
 from site_app.mails import recovery_password_success_mail, signup_confirm_mail, recovery_password_mail, signup_success_mail
@@ -14,24 +15,26 @@ class ResetPasswordView(View):
 
     def get(self, request):
         form = ResetPasswordForm()
+        seo = SeoPage.objects.filter(page="reset-password").first() or None
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Reset password",
+            "seo": seo,
             "form": form
         })
 
     def post(self, request):
         form = ResetPasswordForm(request.POST)
+        seo = SeoPage.objects.filter(page="reset-password").first() or None
         if form.is_valid():
             email = form.cleaned_data.get('email')
             user = User.objects.get(email=email)
             recovery_password_mail(user.email, generate_token(user, "reset_password"))
             return render(request, self.template_view, context={
-                "title": "RadioCircuit | Reset password",
+                "seo": seo,
                 "form": form,
                 "info": "We have sent you an email with additional instructions for changing your password."
             })
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Reset password",
+            "seo": seo,
             "form": form
         })
 
@@ -42,14 +45,16 @@ class ChangePasswordView(View):
     def get(self, request, token):
         instance = get_object_or_404(Token, token=token)
         form = ChangePasswordForm()
+        seo = SeoPage.objects.filter(page="change-password").first() or None
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Change password",
+            "seo": seo,
             "form": form
         })
 
     def post(self, request, token):
         instance = get_object_or_404(Token, token=token)
         form = ChangePasswordForm(request.POST)
+        seo = SeoPage.objects.filter(page="change-password").first() or None
         if form.is_valid():
             password = form.cleaned_data.get('password1')
             instance.user.set_password(password)
@@ -57,12 +62,12 @@ class ChangePasswordView(View):
             recovery_password_success_mail(instance.user.email)
             instance.delete()
             return render(request, self.template_view, context={
-                "title": "RadioCircuit | Change password",
+                "seo": seo,
                 "form": form,
                 "info": "Password has been changed."
             })
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Change password",
+            "seo": seo,
             "form": form
         })
 
@@ -72,24 +77,26 @@ class SignupView(View):
 
     def get(self, request):
         form = NewUserForm()
+        seo = SeoPage.objects.filter(page="signup").first() or None
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Sign up",
+            "seo": seo,
             "form": form
         })
 
     def post(self, request):
         form = NewUserForm(request.POST)
+        seo = SeoPage.objects.filter(page="signup").first() or None
         if form.is_valid():
             user = form.save()
             user.is_active = False
             user.save()
             signup_confirm_mail(user.email, generate_token(user, "signup"))
             return render(request, "site_app/signup_success.html", context={
-                        "title": "RadioCircuit | Sign up",
+                        "seo": seo,
                         "form": form
                     })
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Sign up",
+            "seo": seo,
             "form": form
         })
 
@@ -99,13 +106,15 @@ class LoginView(View):
 
     def get(self, request):
         form = LoginForm()
+        seo = SeoPage.objects.filter(page="login").first() or None
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Login",
+            "seo": seo,
             "form": form
         })
 
     def post(self, request):
         form = LoginForm(request.POST)
+        seo = SeoPage.objects.filter(page="login").first() or None
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -115,7 +124,7 @@ class LoginView(View):
                 return redirect(reverse('home'))
             
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Login",
+            "seo": seo,
             "form": form,
             "error": "Invalid username or password."
         })
@@ -127,8 +136,9 @@ def signup_confirm_view(request, token):
     instance.user.save()
     signup_success_mail(instance.user.email)
     instance.delete()
+    seo = SeoPage.objects.filter(page="signup_confirm").first() or None
     return render(request, 'site_app/signup_confirmed.html', context={
-        "title": "RadioCircuit | Success"
+        "seo": seo
     })
     
 

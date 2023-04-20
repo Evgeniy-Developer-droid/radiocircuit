@@ -20,8 +20,10 @@ class News(models.Model):
     token = models.UUIDField(default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255, default="")
     description = models.TextField(max_length=255, default="")
+    robots = models.CharField(max_length=255, null=True, default="index, follow", blank=True)
+    keywords = models.TextField(max_length=500, null=True, default="", blank=True)
     slug = models.SlugField(unique=True, max_length=500)
-    preview_image = models.ImageField(upload_to="preview_image/")
+    image = models.ImageField(upload_to="preview_image/")
     views = models.IntegerField(default=0)
 
 
@@ -44,8 +46,10 @@ class Post(models.Model):
     token = models.UUIDField(default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255, default="")
     description = models.TextField(max_length=255, default="")
+    robots = models.CharField(max_length=255, null=True, default="index, follow", blank=True)
+    keywords = models.TextField(max_length=500, null=True, default="", blank=True)
     slug = models.SlugField(unique=True, max_length=500)
-    preview_image = models.ImageField(upload_to="preview_image/")
+    image = models.ImageField(upload_to="preview_image/")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     categories = models.ManyToManyField(Category)
     views = models.IntegerField(default=0)

@@ -17,9 +17,9 @@
                 </thead>
                 <tbody>
                     {% for chapter in chapters %}
-                        <tr class="my-1 bg-secondary-subtle">
+                        <tr class="my-1">
                             <th class="" width="50px">
-                                <img width="45px" src="{% if chapter.logo %}{{chapter.logo.url}}{%else%}{% static 'svg/chapter.svg' %}{%endif%}" alt="">
+                                <img width="30px" src="{% if chapter.logo %}{{chapter.logo.url}}{%else%}{% static 'svg/chapter.svg' %}{%endif%}" alt="">
                             </th>
                             <td class="">
                                 <a href="{% url 'forum_topics' chapter.slug %}" class="text-decoration-none h5 text-primary-emphasis">{{chapter.title}}</a>

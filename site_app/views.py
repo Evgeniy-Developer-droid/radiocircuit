@@ -4,6 +4,7 @@ from django.views import View
 from content_app.models import News, Post, Category
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
+from seo.models import SeoPage
 
 
 class SearchView(View):
@@ -23,8 +24,10 @@ class SearchView(View):
             get_params[k] = v
         get_params.pop("page", None)
         instances = page_obj.object_list
+
+        seo = SeoPage.objects.filter(page="search").first() or None
         return render(request, self.template_view, context={
-            "title": f"RadioCircuit | Search",
+            "seo": seo,
             "page_obj": page_obj,
             "get_params": get_params,
             "posts": instances
@@ -35,7 +38,9 @@ class MyProfileView(View):
     template_view = 'site_app/my-profile.html'
 
     def get(self, request):
+        seo = SeoPage.objects.filter(page="my-profile").first() or None
         return render(request, self.template_view, context={
+            "seo": seo,
             "title": f"RadioCircuit | Profile",
         })
     
@@ -59,8 +64,9 @@ class NewsView(View):
             get_params[k] = v
         get_params.pop("page", None)
         instances = page_obj.object_list
+        seo = SeoPage.objects.filter(page="news").first() or None
         return render(request, self.template_view, context={
-            "title": f"RadioCircuit | News",
+            "seo": seo,
             "page_obj": page_obj,
             "get_params": get_params,
             "news": instances
@@ -75,7 +81,7 @@ class SingleNewsView(View):
         instance.views += 1
         instance.save()
         return render(request, self.template_view, context={
-            "title": f"RadioCircuit | {instance.title}",
+            "seo": instance,
             "instance": instance
         })
 
@@ -100,8 +106,9 @@ class PostsView(View):
         instances = page_obj.object_list
 
         categories = Category.objects.all().order_by('title')
+        seo = SeoPage.objects.filter(page="posts").first() or None
         return render(request, self.template_view, context={
-            "title": f"RadioCircuit | Circuits",
+            "seo": seo,
             "posts": instances,
             "page_obj": page_obj,
             "get_params": get_params,
@@ -117,7 +124,7 @@ class PostView(View):
         instance.views += 1
         instance.save()
         return render(request, self.template_view, context={
-            "title": f"RadioCircuit | {instance.title}",
+            "seo": instance,
             "instance": instance
         })
 
@@ -130,8 +137,9 @@ class HomeView(View):
         popular_posts = Post.objects.all().order_by('-views')[:6]
         news = News.objects.all().order_by('-created')[:6]
         categories = Category.objects.all().order_by('title')
+        seo = SeoPage.objects.filter(page="home").first() or None
         return render(request, self.template_view, context={
-            "title": "RadioCircuit | Home",
+            "seo": seo,
             "new_posts": new_posts,
             "popular_posts": popular_posts,
             "news": news,

@@ -15,7 +15,7 @@
               
                     <!--Card image-->
                     <div class="view overlay">
-                      <img class="card-img-top" src="{{post.preview_image.url}}"
+                      <img class="card-img-top" src="{{post.image.url}}"
                         alt="Card image cap">
                       <a href="#!">
                         <div class="mask rgba-white-slight"></div>
@@ -54,7 +54,7 @@
             
                   <!--Card image-->
                   <div class="view overlay">
-                    <img class="card-img-top" src="{{post.preview_image.url}}"
+                    <img class="card-img-top" src="{{post.image.url}}"
                       alt="Card image cap">
                     <a href="#!">
                       <div class="mask rgba-white-slight"></div>
@@ -93,7 +93,7 @@
                   
                   {% for item in news %}
                     <div class="d-flex">
-                      <div class="news_img col-4" style="background-image: url('{{item.preview_image.url}}');"></div>
+                      <div class="news_img col-4" style="background-image: url('{{item.image.url}}');"></div>
                       <div class="news_meta col-8 mx-1">
                         <a href="{% url 'single-news' item.slug %}" class="text-decoration-none">{{item.title}}</a>
                         <p class="text-muted">{{item.description}}</p>
@@ -114,7 +114,7 @@
                   <div class="d-flex flex-wrap">
                     {% for item in categories %}
                       <div class="m-2">
-                        <a href="#" class="btn btn-sm bg-success text-dark bg-opacity-25">
+                        <a href="{% url 'posts' %}?category={{item.slug}}" class="btn btn-sm bg-success text-dark bg-opacity-25">
                           <img src="{% static 'svg/bookmark.svg' %}" width="20px"/>
                           {{item.title}}
                         </a>
