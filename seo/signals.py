@@ -10,4 +10,4 @@ def set_ip_location(sender, instance, *args, **kwargs):
     data = res.json()
     if int(data.get("response_code", 400)) == 200:
         instance.country = data.get("country_name", "unknown")
-        instance.country = data.get("isp", "unknown")
+        instance.isp = data.get("isp", "unknown")
