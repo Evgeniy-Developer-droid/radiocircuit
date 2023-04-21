@@ -50,7 +50,7 @@ class Post(models.Model):
     keywords = models.TextField(max_length=500, null=True, default="", blank=True)
     slug = models.SlugField(unique=True, max_length=500)
     image = models.ImageField(upload_to="preview_image/")
-    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    author = models.CharField(max_length=255, default="", null=True, blank=True)
     categories = models.ManyToManyField(Category)
     views = models.IntegerField(default=0)
 
