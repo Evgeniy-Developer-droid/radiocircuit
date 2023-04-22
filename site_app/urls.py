@@ -1,7 +1,6 @@
 from django.urls import path
 from site_app.tools import test_email_view
-from site_app import views
-from site_app import auth
+from site_app import views, auth, api
 from django.conf import settings
 
 urlpatterns = [
@@ -24,4 +23,7 @@ urlpatterns = [
 
     #test
     path("test-email", test_email_view, name="test-mail"),
+
+    #api
+    path("api/import-post", api.import_post, name="import-post"),
 ]

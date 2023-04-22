@@ -49,9 +49,9 @@ class Post(models.Model):
     robots = models.CharField(max_length=255, null=True, default="index, follow", blank=True)
     keywords = models.TextField(max_length=500, null=True, default="", blank=True)
     slug = models.SlugField(unique=True, max_length=500)
-    image = models.ImageField(upload_to="preview_image/")
+    image = models.ImageField(upload_to="preview_image/", null=True, blank=True)
     author = models.CharField(max_length=255, default="", null=True, blank=True)
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, null=True, blank=True)
     views = models.IntegerField(default=0)
 
 
