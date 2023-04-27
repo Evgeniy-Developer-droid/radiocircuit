@@ -17,8 +17,6 @@ def import_post(request):
         return HttpResponseBadRequest("Permission denied!")
     
     response = requests.get(data.get("image"), stream=True)
-    if response.status_code != requests.codes.ok:
-        return HttpResponseBadRequest("image error link")
     file_name = data.get("image").split('/')[-1]
     lf = tempfile.NamedTemporaryFile(delete=True)
     for block in response.iter_content(1024 * 8):
@@ -36,13 +34,11 @@ def import_post(request):
 
     if not post.image:
         post.delete()
-        return HttpResponseBadRequest("image error link")
+        return HttpResponseBadRequest("image error link when create post")
     
     for content_item in data.get('content'):
         if content_item.get('image', None):
             response = requests.get(content_item.get("image"), stream=True)
-            if response.status_code != requests.codes.ok:
-                return HttpResponseBadRequest("image error link")
             file_name = content_item.get("image").split('/')[-1]
             lf = tempfile.NamedTemporaryFile(delete=True)
             for block in response.iter_content(1024 * 8):
